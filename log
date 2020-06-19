@@ -1,0 +1,2 @@
+{"time":"2020-06-19T19:38:04.368659965Z","id":"","remote_ip":"::1","host":"localhost:8080","method":"POST","uri":"/users","user_agent":"curl/7.70.0","status":201,"error":"","latency":164829,"latency_human":"164.829µs","bytes_in":20,"bytes_out":48}
+{"time":"2020-06-19T19:38:07.727690144Z","id":"","remote_ip":"::1","host":"localhost:8080","method":"POST","uri":"/users","user_agent":"curl/7.70.0","status":201,"error":"","latency":50122,"latency_human":"50.122µs","bytes_in":20,"bytes_out":48}
