@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>all</title>
+    <script>
+        window.onload = () => {
+            fetch("/data")
+            .then(res => res.json())
+            .then(res => {
+                let data = "";
+                for (let i=0;i<res.length;i++){
+                    data += "<tr><th>"
+                    data += res[i].id.toString() + '</th>\t<th>'
+                    data += res[i].name.toString().substring(0,10) + "</th>\t<th>"
+                    data += res[i].email.toString().substring(0,10) + "</th>\t<th>"
+                    data += res[i].age.toString() + "</th>\n</tr>"
+                }
+                document.getElementById("data").innerHTML = data
+            })
+        }
+    </script>
+    <style>
+        th{
+            font: 12px monospace,monospace;
+            font-weight: normal;
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <pre> 
+<a href="/index.html">home</a>
+    </pre>
+<table style="font: 16px monospace,monospace;">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>age</th>
+            <th>email</th>
+        </tr>
+    </thead>
+    <tbody id="data">
+
+    </tbody>
+</table>
+</body>
+</html>

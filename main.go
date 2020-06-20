@@ -1,8 +1,8 @@
 package main
 
 import (
-	"os"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/labstack/echo"
@@ -10,17 +10,16 @@ import (
 )
 
 type user struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
+	ID    int    `json:"id"`
+	Name  string `json:"name"`
 	Email string `json:"email"`
-	Age string `json:"age"`
+	Age   string `json:"age"`
 }
 
 var (
 	users = map[int]*user{}
 	seq   = 1
 )
-
 
 func createUser(c echo.Context) error {
 	u := &user{
@@ -59,12 +58,12 @@ func deleteUser(c echo.Context) error {
 
 func main() {
 	e := echo.New()
-	lf ,_ := os.Create("log")
+	// lf, _ := os.OpenFile("log", os.O_APPEND|os.O_CREATE, 0777)
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
-	Output:lf,
-}))
+		Output: os.Stdout,
+	}))
 	e.Use(middleware.Recover())
-	e.File("/","front/index.html")
+	e.Static("/", "front")
 	e.GET("/data", showAllUsers)
 	e.POST("/users", createUser)
 	e.GET("/users/:id", getUser)
@@ -75,8 +74,8 @@ func main() {
 
 func showAllUsers(c echo.Context) error {
 	allusers := []user{}
-	for _,i:=range users{
-		allusers = append(allusers,*i)
+	for _, i := range users {
+		allusers = append(allusers, *i)
 	}
-	return c.JSON(http.StatusOK,allusers)
+	return c.JSON(http.StatusOK, allusers)
 }

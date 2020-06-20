@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update</title>
+    <script>
+        let b = {
+            name : "",
+            age : "",
+            email : "",
+        }
+        window.onload = () => {
+            document.getElementById("btn").onclick = () => {
+                b.name = document.getElementById("name").value.toString()
+                b.age = document.getElementById("age").value.toString()
+                b.email = document.getElementById("email").value.toString()
+                const  n = document.getElementById("id").value.toString()
+                fetch("/users/"+n, {
+                    body: JSON.stringify(b),
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    method: "PUT"
+                }).then( ()=> {
+                    
+                })
+            }
+        }
+    </script>
+</head>
+<body>
+    <pre>
+        <a href="/index.html">home</a>
+ id of user to be updated   <input type="number" id="id"><br>
+ new name    <input type="text" id="name">
+ new email   <input type="text" id="email">
+ new age     <input type="number" id="age">
+ <button id="btn">send</button>
+</pre>
+</body>
+</html>
