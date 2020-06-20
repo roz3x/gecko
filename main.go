@@ -33,11 +33,6 @@ func createUser(c echo.Context) error {
 	return c.JSON(http.StatusCreated, u)
 }
 
-func getUser(c echo.Context) error {
-	id, _ := strconv.Atoi(c.Param("id"))
-	return c.JSON(http.StatusOK, users[id])
-}
-
 func updateUser(c echo.Context) error {
 	u := new(user)
 	if err := c.Bind(u); err != nil {
@@ -58,18 +53,17 @@ func deleteUser(c echo.Context) error {
 
 func main() {
 	e := echo.New()
-	// lf, _ := os.OpenFile("log", os.O_APPEND|os.O_CREATE, 0777)
+	lf, _ := os.OpenFile("log", os.O_APPEND|os.O_CREATE, 0777)
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
-		Output: os.Stdout,
+		Output: lf,
 	}))
 	e.Use(middleware.Recover())
 	e.Static("/", "front")
 	e.GET("/data", showAllUsers)
 	e.POST("/users", createUser)
-	e.GET("/users/:id", getUser)
 	e.PUT("/users/:id", updateUser)
 	e.DELETE("/users/:id", deleteUser)
-	e.Logger.Fatal(e.Start(":8080"))
+	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }
 
 func showAllUsers(c echo.Context) error {
